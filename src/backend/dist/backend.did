@@ -1,0 +1,139 @@
+type WorkoutSession = 
+ record {
+   exercises: vec SmartExercise;
+   note: text;
+   setLogs: vec record {
+                  ExerciseId;
+                  vec SetLog;
+                };
+   timestamp: Timestamp;
+   totalVolume: float64;
+   workoutType: text;
+ };
+type UserProfile = 
+ record {
+   bodyweightKg: float64;
+   experienceLevel: ExperienceLevel;
+   gender: Gender;
+   goal: Goal;
+   restTimerSeconds: nat;
+ };
+type TrainingState = 
+ record {
+   fatigueScore: nat;
+   weekNumber: nat;
+ };
+type Timestamp = int;
+type SmartMenuResult = 
+ record {
+   trace: EngineTrace;
+   workout: vec SmartExercise;
+ };
+type SmartExercise = 
+ record {
+   coachTip: text;
+   exerciseId: ExerciseId;
+   movement: text;
+   muscleGroup: MuscleGroup;
+   name: text;
+   progressionFlag: text;
+   repRange: text;
+   sets: nat;
+   targetWeight: float64;
+ };
+type SetLog = 
+ record {
+   repsCompleted: nat;
+   rpe: opt nat;
+   setNumber: nat;
+   weightUsed: float64;
+ };
+type SelectionStep = 
+ record {
+   input: text;
+   output: text;
+   step: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type RejectedExercise = 
+ record {
+   exerciseId: ExerciseId;
+   reason: text;
+ };
+type ReadinessItem = 
+ record {
+   muscleGroup: MuscleGroup;
+   recoveryPct: nat;
+ };
+type PersonalBest = 
+ record {
+   achievedAt: Timestamp;
+   est1RM: float64;
+   exerciseId: ExerciseId;
+   reps: nat;
+   weight: float64;
+ };
+type MuscleGroup = text;
+type Goal = 
+ variant {
+   hypertrophy;
+   quick;
+   strength;
+ };
+type Gender = 
+ variant {
+   female;
+   male;
+ };
+type ExperienceLevel = 
+ variant {
+   advanced;
+   beginner;
+   intermediate;
+ };
+type ExerciseId = text;
+type Exercise = 
+ record {
+   id: ExerciseId;
+   movement: text;
+   muscleGroup: MuscleGroup;
+   name: text;
+ };
+type EngineTrace = 
+ record {
+   fatigueScore: nat;
+   finalOrderingReason: text;
+   muscleScores: vec record {
+                       MuscleGroup;
+                       float64;
+                     };
+   phase: text;
+   rejectedExercises: vec RejectedExercise;
+   selectedFocus: vec MuscleGroup;
+   selectionSteps: vec SelectionStep;
+ };
+type CoachRecommendation = 
+ record {
+   readiness: vec ReadinessItem;
+   reason: text;
+   workoutType: text;
+ };
+service : {
+  getCoachRecommendation: () -> (opt CoachRecommendation);
+  getExercises: () -> (vec Exercise) query;
+  getPersonalBests: () -> (vec record {
+                                 text;
+                                 PersonalBest;
+                               });
+  getReadiness: () -> (vec ReadinessItem);
+  getSmartMenu: (workoutType: text) -> (SmartMenuResult);
+  getTrainingState: () -> (opt TrainingState);
+  getUserProfile: () -> (opt UserProfile);
+  getWorkoutHistory: (offset: nat, limit: nat) -> (vec WorkoutSession);
+  logWorkout: (session: WorkoutSession) -> (Result);
+  setUserProfile: (profile: UserProfile) -> ();
+}

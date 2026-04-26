@@ -1,0 +1,25 @@
+{
+  "overview": "CaffeineCoach is a high-integrity, deterministic smart gym coaching app for serious lifters. Powered by a complete v2.4 engine with a 34-exercise immutable library, a 13-step deterministic workout generation pipeline, full recovery and fatigue modeling, and a transparent Coach Reasoning panel that explains every workout decision.",
+  "features": [
+    "Deterministic 13-step workout generation pipeline",
+    "Recovery-aware focus muscle selection with priority scoring",
+    "Full EngineTrace transparency — 'Why this workout?' panel",
+    "Fatigue management with phase cycling (accumulation → intensification → deload)",
+    "Personal best tracking with Brzycki 1RM formula",
+    "Smart swap system ranked by movement type then alphabetical",
+    "Real-time set logging with RPE input and rest timer",
+    "Clean-slate upgrade — all data reset to v2.4 baseline"
+  ],
+  "category": "health-fitness",
+  "tags": [
+    "fitness",
+    "gym",
+    "workout",
+    "coaching",
+    "strength",
+    "recovery",
+    "internet-computer",
+    "motoko"
+  ],
+  "last_updated": "2026-04-26T04:17:42.790Z"
+}

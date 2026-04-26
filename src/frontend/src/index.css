@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --font-display: "SpaceGrotesk", system-ui, sans-serif;
+    --font-body: "GeneralSans", system-ui, sans-serif;
+    --font-mono: "JetBrainsMono", monospace;
+
+    /* Dark theme as default — matches design spec */
+    /* Background: #0B0F14 ≈ oklch(0.12 0.012 240) */
+    --background: 0.12 0.012 240;
+    /* Surface cards: #121824 ≈ oklch(0.16 0.018 240) */
+    --card: 0.16 0.018 240;
+    --card-foreground: 0.93 0.012 240;
+    /* Elevated surface: #161E2E */
+    --popover: 0.18 0.022 245;
+    --popover-foreground: 0.93 0.012 240;
+
+    /* Primary text: #E8EEF7 ≈ oklch(0.93 0.012 240) */
+    --foreground: 0.93 0.012 240;
+    /* Secondary text: #9AA7B8 ≈ oklch(0.70 0.022 240) */
+    --muted-foreground: 0.7 0.022 240;
+    /* Muted labels: #6F7C8F ≈ oklch(0.55 0.022 240) */
+
+    /* Borders: #202A3A ≈ oklch(0.22 0.022 245) */
+    --border: 0.22 0.022 245;
+    --input: 0.22 0.022 245;
+
+    /* CTA blue: #3B82F6 ≈ oklch(0.60 0.20 260) */
+    --primary: 0.6 0.2 260;
+    --primary-foreground: 0.98 0.005 240;
+
+    /* Secondary surface */
+    --secondary: 0.2 0.022 245;
+    --secondary-foreground: 0.93 0.012 240;
+
+    --muted: 0.2 0.022 245;
+
+    /* Accent cyan: #06B6D4 ≈ oklch(0.72 0.15 210) */
+    --accent: 0.72 0.15 210;
+    --accent-foreground: 0.12 0.012 240;
+
+    /* Destructive: #EF4444 ≈ oklch(0.60 0.22 25) */
+    --destructive: 0.6 0.22 25;
+    --destructive-foreground: 0.98 0.005 240;
+
+    --ring: 0.6 0.2 260;
+
+    /* Success: #22C55E ≈ oklch(0.73 0.20 145) */
+    --success: 0.73 0.2 145;
+    --success-foreground: 0.12 0.012 240;
+
+    /* Warning: #F59E0B ≈ oklch(0.78 0.18 70) */
+    --warning: 0.78 0.18 70;
+    --warning-foreground: 0.12 0.012 240;
+
+    /* Recovery track bg: #1E2A3B ≈ oklch(0.20 0.022 245) */
+    --track: 0.2 0.022 245;
+
+    /* Chart colors */
+    --chart-1: 0.73 0.2 145;
+    --chart-2: 0.6 0.2 260;
+    --chart-3: 0.78 0.18 70;
+    --chart-4: 0.6 0.22 25;
+    --chart-5: 0.72 0.15 210;
+
+    /* Sidebar */
+    --sidebar: 0.12 0.012 240;
+    --sidebar-foreground: 0.93 0.012 240;
+    --sidebar-primary: 0.6 0.2 260;
+    --sidebar-primary-foreground: 0.98 0.005 240;
+    --sidebar-accent: 0.2 0.022 245;
+    --sidebar-accent-foreground: 0.93 0.012 240;
+    --sidebar-border: 0.22 0.022 245;
+    --sidebar-ring: 0.6 0.2 260;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Number inputs without spinners */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer utilities {
+  .text-success {
+    color: oklch(var(--success));
+  }
+  .text-warning {
+    color: oklch(var(--warning));
+  }
+  .bg-success {
+    background-color: oklch(var(--success));
+  }
+  .bg-warning {
+    background-color: oklch(var(--warning));
+  }
+  .bg-track {
+    background-color: oklch(var(--track));
+  }
+  .border-card {
+    border-color: oklch(var(--border));
+  }
+
+  /* Recovery color classes */
+  .recovery-high {
+    color: oklch(var(--success));
+  }
+  .recovery-med {
+    color: oklch(var(--warning));
+  }
+  .recovery-low {
+    color: oklch(var(--destructive));
+  }
+
+  .recovery-bar-high {
+    background-color: oklch(var(--success));
+  }
+  .recovery-bar-med {
+    background-color: oklch(var(--warning));
+  }
+  .recovery-bar-low {
+    background-color: oklch(var(--destructive));
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.04);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+  }
+  .pulse-ring {
+    animation: pulse-ring 1.5s ease-in-out infinite;
+  }
+
+  @keyframes timer-countdown {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: 283;
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 1000px;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 1;
+      max-height: 1000px;
+    }
+    to {
+      opacity: 0;
+      max-height: 0;
+    }
+  }
+
+  .slide-down {
+    animation: slide-down 0.3s ease-out;
+  }
+
+  .slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  /* Coach Reasoning panel styling */
+  .trace-panel {
+    @apply bg-card border border-border rounded-lg p-4 space-y-3 transition-all duration-300;
+  }
+
+  .trace-section {
+    @apply space-y-2;
+  }
+
+  .trace-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+  }
+
+  /* Exercise card styling */
+  .exercise-card {
+    @apply relative bg-card border border-border rounded-lg p-4 space-y-3 transition-all duration-200 hover:border-accent/40;
+  }
+
+  .exercise-header {
+    @apply flex items-start justify-between gap-2;
+  }
+
+  .exercise-title {
+    @apply font-display font-semibold text-lg leading-tight;
+  }
+
+  /* Phase badge */
+  .phase-badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .phase-accumulation {
+    @apply bg-blue-500/20 text-chart-2;
+  }
+
+  .phase-intensification {
+    @apply bg-warning/20 text-warning;
+  }
+
+  .phase-deload {
+    @apply bg-success/20 text-success;
+  }
+
+  /* Muscle group / focus badge */
+  .muscle-badge {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium bg-card border border-border;
+  }
+
+  .muscle-focus {
+    @apply border-accent/60 bg-accent/10 text-accent;
+  }
+
+  /* Movement type pill */
+  .movement-pill {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium bg-muted/30 text-muted-foreground;
+  }
+
+  /* Progression flag */
+  .progression-flag {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold;
+  }
+
+  .progression-increase {
+    @apply bg-success/20 text-success;
+  }
+
+  .progression-maintain {
+    @apply bg-accent/20 text-accent;
+  }
+
+  .progression-deload {
+    @apply bg-warning/20 text-warning;
+  }
+
+  /* Recovery bar gradient */
+  .recovery-gradient {
+    position: relative;
+    background: linear-gradient(
+      to right,
+      oklch(var(--destructive)),
+      oklch(var(--warning)),
+      oklch(var(--success))
+    );
+  }
+
+  /* Recovery percentage text with semantic color */
+  .recovery-text-high {
+    @apply text-success;
+  }
+
+  .recovery-text-med {
+    @apply text-warning;
+  }
+
+  .recovery-text-low {
+    @apply text-destructive;
+  }
+}

@@ -1,0 +1,154 @@
+// Version: 3.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type ExerciseId__592956379 = Text;
+type ExperienceLevel__1028171813 = {#advanced; #beginner; #intermediate};
+type ExperienceLevel__724016755 = {#advanced; #beginner; #intermediate};
+type Gender__94681853 = {#female; #male};
+type Gender__963885767 = {#female; #male};
+type Goal__641104970 = {#hypertrophy; #quick; #strength};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MuscleGroup__607693759 = Text;
+type MuscleRecovery__333405396 =
+  {
+    lastTrainedAt : Timestamp__301639476;
+    muscleGroup : MuscleGroup__607693759
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OldExercise__1066260051 =
+  {id : Text; movement : Text; muscleGroup : Text; name : Text};
+type OldMuscleRecovery__997495156 =
+  {
+    baselineHours : Nat;
+    lastTrainedAt : Timestamp__817121181;
+    muscleGroup : Text
+  };
+type OldPersonalBest__170554453 =
+  {
+    achievedAt : Timestamp__817121181;
+    est1RM : Float;
+    exerciseId : Text;
+    reps : Nat;
+    weight : Float
+  };
+type OldUserProfile__416069324 =
+  {
+    bodyweightKg : Float;
+    experienceLevel : ExperienceLevel__724016755;
+    gender : Gender__963885767;
+    restTimerSeconds : Nat
+  };
+type OldWorkoutSession__899567319 =
+  {
+    exercises : [WorkoutExercise__252019774];
+    note : Text;
+    timestamp : Timestamp__817121181;
+    totalVolume : Float;
+    workoutType : WorkoutType__438869265
+  };
+type PersonalBest__544186658 =
+  {
+    achievedAt : Timestamp__301639476;
+    est1RM : Float;
+    exerciseId : ExerciseId__592956379;
+    reps : Nat;
+    weight : Float
+  };
+type SetData__813937175 =
+  {actualRestSeconds : ?Nat; reps : Nat; rpe : ?Nat; weight : Float};
+type SetLog__936171757 =
+  {repsCompleted : Nat; rpe : ?Nat; setNumber : Nat; weightUsed : Float};
+type SmartExercise__569992674 =
+  {
+    coachTip : Text;
+    exerciseId : ExerciseId__592956379;
+    movement : Text;
+    muscleGroup : MuscleGroup__607693759;
+    name : Text;
+    progressionFlag : Text;
+    repRange : Text;
+    sets : Nat;
+    targetWeight : Float
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__817121181 = Int;
+type TrainingState__311619369 = {fatigueScore : Nat; weekNumber : Nat};
+type UserProfile__170577609 =
+  {
+    bodyweightKg : Float;
+    experienceLevel : ExperienceLevel__1028171813;
+    gender : Gender__94681853;
+    goal : Goal__641104970;
+    restTimerSeconds : Nat
+  };
+type WorkoutExercise__252019774 =
+  {exerciseId : Text; muscleGroup : Text; sets : [SetData__813937175]};
+type WorkoutSession__144625581 =
+  {
+    exercises : [SmartExercise__569992674];
+    note : Text;
+    setLogs : [(ExerciseId__592956379, [SetLog__936171757])];
+    timestamp : Timestamp__301639476;
+    totalVolume : Float;
+    workoutType : Text
+  };
+type WorkoutType__438869265 = {#fullBody; #lower; #upper};
+actor ({
+  in DELOAD_KG : Float;
+  in EPS : Float;
+  in MAX_BODYWEIGHT : Float;
+  in MAX_RECOVERY : Nat;
+  in MAX_REST : Nat;
+  in MIN_BODYWEIGHT : Float;
+  in MIN_REST : Nat;
+  in RECOVERY_HIGH : Nat;
+  in RECOVERY_MED : Nat;
+  in allMuscles : [Text];
+  in bests :
+    Map__605269027<Principal,
+                    Map__605269027<Text, OldPersonalBest__170554453>>;
+  in exercises : [OldExercise__1066260051];
+  in lastFocusMuscles : Map__605269027<Principal, [Text]>;
+  in recovery : Map__605269027<Principal, [OldMuscleRecovery__997495156]>;
+  in sessions : Map__605269027<Principal, [OldWorkoutSession__899567319]>;
+  in users : Map__605269027<Principal, OldUserProfile__416069324>
+}, {
+  stable bests :
+    {
+      var root :
+        Node__46230540<Principal,
+                        Map__605269027<Text, PersonalBest__544186658>>;
+      var size : Nat__490723111
+    };
+  stable lastFocusMuscles :
+    {var root : Node__46230540<Principal, [Text]>; var size : Nat__490723111};
+  stable recovery :
+    {
+      var root : Node__46230540<Principal, [MuscleRecovery__333405396]>;
+      var size : Nat__490723111
+    };
+  stable sessions :
+    {
+      var root : Node__46230540<Principal, [WorkoutSession__144625581]>;
+      var size : Nat__490723111
+    };
+  stable trainingState :
+    {
+      var root : Node__46230540<Principal, TrainingState__311619369>;
+      var size : Nat__490723111
+    };
+  stable users :
+    {
+      var root : Node__46230540<Principal, UserProfile__170577609>;
+      var size : Nat__490723111
+    }
+}) ;
